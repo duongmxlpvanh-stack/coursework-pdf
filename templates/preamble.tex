@@ -1,0 +1,58 @@
+% preamble.tex —— 共享导言区（不含 \documentclass，由 gen_sections.py 内联进 main.tex）
+% 注意：不引入 ocgx2 或任何 OCG 图层包；hyperref 及导航宏在下方注入。
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{amsfonts}
+\usepackage{esint}   % 提供 \oiint、\oiiint 等闭曲面积分符号（与 conventions 符号表对齐）
+\usepackage{bm}        % \bm 粗体数学（向量/张量），DeepSeek 常用
+\usepackage{mathrsfs}  % \mathscr 花体（傅里叶变换、拉氏变换等）
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{array}
+% siunitx（单位/科学计数，大学物理常用）按需加载——缺包时跳过而非整卷编译失败
+\IfFileExists{siunitx.sty}{\usepackage{siunitx}}{}
+% TikZ / PGFPlots（矢量配图，--figures 时启用）——同样用 \IfFileExists 缺包兜底。
+% 二者均不需要 shell-escape，与 -no-shell-escape 微编译及整卷编译完全兼容。
+\IfFileExists{tikz.sty}{%
+  \usepackage{tikz}%
+  % decorations.markings：场线/有向路径中点箭头（物理电磁场常用）；bending：箭头随路径弯曲；
+  % backgrounds：背景层；shapes.geometric/shapes.misc：几何/圆角节点；fit：包裹多节点的框。
+  \usetikzlibrary{calc,arrows.meta,angles,quotes,patterns,intersections,positioning,decorations.pathmorphing,decorations.markings,bending,backgrounds,shapes.geometric,shapes.misc,fit}%
+}{}
+% pgfplots 库必须在 \usepackage{pgfplots} 之后加载。fillbetween：两曲线间填充（阴影概率/积分区域，
+% 各科政策都会用到）；groupplots：多子图；polar：极坐标；statistics：箱线/直方等统计图。
+% 缺这些库时，模型一旦按政策用 fill between 等就会整卷编译失败——这正是配图不稳定的主因。
+\IfFileExists{pgfplots.sty}{%
+  \usepackage{pgfplots}\pgfplotsset{compat=1.18}%
+  \usepgfplotslibrary{fillbetween,groupplots,polar,statistics}%
+}{}
+
+% ---- 防御性兜底：补常见但默认未定义的宏，避免 "Undefined control sequence" 整卷失败 ----
+% 一律用 \providecommand（仅在未定义时生效），不覆盖任何包或各科 conventions 的既有记号。
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\dd}{\,\mathrm{d}}   % 微分 d
+\providecommand{\degree}{^\circ}
+\providecommand{\abs}[1]{\left|#1\right|}
+\providecommand{\norm}[1]{\left\|#1\right\|}
+% \sloppy：放宽断行，减少 overfull（仅警告非错误，但让长公式版面更稳）
+\sloppy
+
+<<<HYPERLINKS_PREAMBLE>>>
+
+\linespread{1.15}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+% 最终答案框
+\newcommand{\boxedans}[1]{\[\boxed{\,#1\,}\]}
+
+% 常见陷阱提示行
+\newcommand{\pitfall}[1]{\par\smallskip\noindent\textcolor{red!60!black}{\textbf{常见陷阱：}}#1\par}
+
+% 知识点小节标题（study 模式用）
+\newcommand{\kpsection}[1]{\par\bigskip\noindent{\large\bfseries #1}\par\smallskip}
