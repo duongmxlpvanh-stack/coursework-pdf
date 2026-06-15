@@ -1,20 +1,20 @@
-# coursework-pdf 🎓
+# coursework-pdf 
 
 > 大学课程试题与知识点 PDF 生成器 —— LLM 出题 + XeLaTeX 排版，一站式流水线
 
 把「出题 / 整理知识点」变成一条命令：按科目读取约定文件 → 调 LLM 分节生成 → 套 XeLaTeX 模板 → 编译成可打印 PDF。目标是**消除手动排版与手动拼装**，你只需决定科目、章节范围和题数。
 
-## ✨ 特性
+##  特性
 
-- 🧪 **exam 模式**：出题 + 答案分卷 PDF，题号一一对应
-- 📖 **study 模式**：知识点复习讲义，带目录超链接和 PDF 书签
-- 🛡️ **三层鲁棒性**：P0 自动清洗 → P1 逐题编译校验+自动修复 → P2 整卷失败自动占位，**PDF 必出**
-- 🎨 **TikZ/PGFPlots 配图**：概率论/高数/物理三科支持内嵌矢量图（函数图像、受力分析、积分区域等）
-- 🚀 **零安装编译**：`--pdf-engine tectonic` 自动下载 tectonic 引擎，无需安装 TeX Live
-- 📚 **多科并发**：一次生成多门课材料
-- 🎛️ **灵活控制**：题型配比、难度梯度、章节范围全可控
+-  **exam 模式**：出题 + 答案分卷 PDF，题号一一对应
+-  **study 模式**：知识点复习讲义，带目录超链接和 PDF 书签
+-  **三层鲁棒性**：P0 自动清洗 → P1 逐题编译校验+自动修复 → P2 整卷失败自动占位，**PDF 必出**
+-  **TikZ/PGFPlots 配图**：概率论/高数/物理三科支持内嵌矢量图（函数图像、受力分析、积分区域等）
+-  **零安装编译**：`--pdf-engine tectonic` 自动下载 tectonic 引擎，无需安装 TeX Live
+-  **多科并发**：一次生成多门课材料
+-  **灵活控制**：题型配比、难度梯度、章节范围全可控
 
-## 📦 支持科目
+##  支持科目
 
 | 科目 | `--subject` | 配图 |
 |------|-------------|:----:|
@@ -26,7 +26,7 @@
 
 > 新科目只需复制 `conventions/_template.md` 填写三个标记块即可接入，无需改代码。
 
-## 🚀 快速开始
+##  快速开始
 
 ### 1. 配置 API Key
 
@@ -111,7 +111,7 @@ python scripts/gen_sections.py --subject probability --list-sections
 
 > 完整参数见 [`reference.md`](reference.md)，配图系统见 [`figures.md`](figures.md)
 
-## 🏗️ 架构
+##  架构
 
 ```
 SKILL.md (入口) ──→ Step 0-10 工作流
@@ -151,7 +151,7 @@ P2  整卷编译修复（--build 触发）
   └─ 占位/剥图 → 重编 → 保证 PDF 必出
 ```
 
-## 🔧 依赖
+##  依赖
 
 - **Python 3.10+** + `requests`
 - **PDF 编译**（三选一）：
@@ -159,10 +159,10 @@ P2  整卷编译修复（--build 触发）
   - `tectonic`（自动下载，无需安装）
   - 在线服务（备用）
 
-## 📄 许可
+##  许可
 
 MIT License
 
 ---
 
-🤖 由 Claude Code + DeepSeek 驱动 | built with ❤️
+ 由 Claude Code + DeepSeek 驱动 | built with ❤️
